@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/castillobg/sententia"
+	"github.com/castillobgr/sententia"
 	"github.com/stretchr/testify/assert"
 )
 

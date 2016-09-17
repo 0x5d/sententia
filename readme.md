@@ -132,7 +132,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/castillobg/sententia"
+	"github.com/castillobgr/sententia"
 )
 
 func main() {
