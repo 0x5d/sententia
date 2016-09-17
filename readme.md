@@ -104,38 +104,22 @@ sententia.Make(
 // => "Once I had a spleeny wallet full of toilets but they flew into an orchestra."
 ```
 
-## Extending actions
+## Extending sententia
 
-sententia can be extended by adding custom actions. Let's say we want to append 'er' to every noun:
-We could write something like
+**Adjectives and nouns**
+
+sententia can be extended by adding custom nouns or adjectives, or overwriting the built-in ones.
 ```go
-package main
+customNouns := []string{"potato", "carrot", "letuce"}
+sententia.AddNouns(nouns) // Apepnds the new nouns to the existent ones.
+sententia.SetNouns(nouns) // Overwrites the existent nouns.
 
-import (
-	"fmt"
-	"math/rand"
-
-	"github.com/castillobg/sententia"
-)
-
-func main() {
-	customActions := map[string]interface{}{
-		"rating": func() string {
-			ratings := []string{"OK", "bad", "meh", "super"}
-			return ratings[rand.Intn(len(ratings))]
-		},
-	}
-	sententia.AddActions(customActions)
-	sentence, err := sententia.Make(
-		"Dinner was {{ rating }}.",
-	)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(sentence)
-}
+customAdjectives := []string{"delicious", "earthy", "healthy"}
+sententia.AddAdjectives(customAdjectives) // Apepnds the new adjectives to the existent ones.
+sententia.SetAdjectives(customAdjectives) // Overwrites existent adjectives.
 ```
-and maybe we'd get `"Dinner was super."`
+
+**Actions**
 
 Because sententia is based on Go's `text/template` package, we can also compose actions by feeding
 their output into other ones. For example, we could write an action to turn a noun into title case,
