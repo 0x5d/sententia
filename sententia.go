@@ -7,12 +7,12 @@ import (
 
 // Make generates a sentence replacing the noun and adjective templates.
 func Make(sentence string) (string, error) {
-	tmpl, err := template.New("sentence").Parse(sentence)
+	tmpl, err := template.New("sentence").Funcs(funcs).Parse(sentence)
 	if err != nil {
 		return "", err
 	}
 	var buf = &bytes.Buffer{}
-	err = tmpl.Execute(buf, &maker{})
+	err = tmpl.Execute(buf, nil)
 	if err != nil {
 		return "", err
 	}

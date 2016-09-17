@@ -1,6 +1,6 @@
 package sententia
 
-var adjectives = []string{
+var adjectiveList = []string{
 	"abased",
 	"abject",
 	"able",

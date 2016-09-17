@@ -1,10 +1,6 @@
 package sententia
 
-// yes, we're going to be crude and load all the words into memory... it's really not so bad.
-// the list comes from this gem:
-// http://www.ashley-bovan.co.uk/words/partsofspeech.html
-
-var nouns = []string{
+var nounList = []string{
 	"aardvark",
 	"abyssinian",
 	"accelerator",
