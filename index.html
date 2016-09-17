@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Sententia by castillobgr</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Sententia</h1>
+        <p>Generate random adjective-noun combinations, madlibs-style, in Golang.</p>
+
+        <p class="view"><a href="https://github.com/castillobgr/sententia">View the Project on GitHub <small>castillobgr/sententia</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/castillobgr/sententia/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/castillobgr/sententia/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/castillobgr/sententia">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="sententia" class="anchor" href="#sententia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>sententia</h1>
+
+<p>Generate random adjective-noun combinations, madlibs-style, in Golang. Inspired by
+<a href="https://github.com/kylestetz">kylestetz</a>'s <a href="https://github.com/kylestetz/Sentencer">Sentencer</a>
+(node.js module).</p>
+
+<pre lang="golang"><code>"Oh look, {{ an_adjective }} {{ noun }}!"
+</code></pre>
+
+<p>becomes something like (it's random!):</p>
+
+<pre lang="golang"><code>"Oh look, a tameless recorder!"
+</code></pre>
+
+<p>sententia uses Go's <code>text/template</code> to identify the places where a new noun or adjective should be
+generated.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Download the lib.</p>
+
+<div class="highlight highlight-source-shell"><pre>go get github.com/castillobgr/sententia</pre></div>
+
+<pre lang="golang"><code>package main
+
+import (
+    "fmt"
+
+    "github.com/castillobgr/sententia"
+)
+
+func main() {
+    sentence, err := sententia.Make("Aw yis, {{ adjective }} {{ nouns }}.")
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(sentence)
+}
+</code></pre>
+
+<h2>
+<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Actions</h2>
+
+<p>Built in actions are:</p>
+
+<p><strong><code>{{ noun }}</code></strong></p>
+
+<p>Picks a random noun and replaces it in the input.</p>
+
+<pre lang="golang"><code>sententia.Make("{{ noun }}")
+// =&gt; "avenue", "knot", "show", "narcissus"
+</code></pre>
+
+<p><strong><code>{{ a_noun }}</code></strong></p>
+
+<p>Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.</p>
+
+<pre lang="golang"><code>sententia.Make("{{ a_noun }}")
+// =&gt; "a romanian", "an archer", "a tyvek"
+</code></pre>
+
+<p><strong><code>{{ nouns }}</code></strong></p>
+
+<p>Picks a random noun and pluralizes it.</p>
+
+<pre lang="golang"><code>sententia.Make("{{ noun }}")
+// =&gt; "harbors", "pumps", "overcoats", "gongs"
+</code></pre>
+
+<p><strong><code>{{ adjective }}</code></strong></p>
+
+<p>Is replaced in the template by a random adjective.</p>
+
+<pre lang="golang"><code>sententia.Make("{{ adjective }}")
+// =&gt; "sprightful", "naif", "glowing", "surfy"
+</code></pre>
+
+<p><strong><code>{{ an_adjective }}</code></strong></p>
+
+<p>Picks a random adjective and precedes it with an article.</p>
+
+<pre lang="golang"><code>sententia.Make("{{ an_adjective }}")
+// =&gt; "a sphygmic", "a clubby", "an uncocked", "a bumbling"
+</code></pre>
+
+<p><strong>These all</strong> can be mixed to provide beautiful nonsensic sentences:</p>
+
+<pre lang="golang"><code>sententia.Make(
+  "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}."
+)
+// =&gt; "Once I had a spleeny wallet full of toilets but they flew into an orchestra."
+</code></pre>
+
+<h2>
+<a id="use-cases" class="anchor" href="#use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use cases</h2>
+
+<ul>
+<li>Creating random IDs a la Heroku</li>
+<li>Generating lorem ipsums</li>
+<li>Fun</li>
+<li>??</li>
+<li>Profit</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/castillobgr">castillobgr</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
