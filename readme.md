@@ -17,6 +17,16 @@ becomes something like (it's random!):
 sententia uses Go's `text/template` to identify the places where a new noun or adjective should be
 generated.
 
+
+## Use cases
+
+- Creating random IDs a la Heroku
+- Generating lorem ipsums
+- Fun
+- ??
+- Profit
+
+
 ## Usage
 
 Download the lib.
@@ -89,15 +99,72 @@ sententia.Make("{{ an_adjective }}")
 **These all** can be mixed to provide beautiful nonsensic sentences:
 ```golang
 sententia.Make(
-  "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}."
+  "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}.",
 )
 // => "Once I had a spleeny wallet full of toilets but they flew into an orchestra."
 ```
 
-## Use cases
+## Extending actions
 
-- Creating random IDs a la Heroku
-- Generating lorem ipsums
-- Fun
-- ??
-- Profit
+sententia can be extended by adding custom actions. Let's say we want to append 'er' to every noun:
+We could write something like
+```golang
+package main
+
+import (
+	"fmt"
+	"math/rand"
+
+	"github.com/castillobg/sententia"
+)
+
+func main() {
+	customActions := map[string]interface{}{
+		"rating": func() string {
+			ratings := []string{"OK", "bad", "meh", "super"}
+			return ratings[rand.Intn(len(ratings))]
+		},
+	}
+	sententia.AddActions(customActions)
+	sentence, err := sententia.Make(
+		"Dinner was {{ rating }}.",
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(sentence)
+}
+```
+and maybe we'd get `"Dinner was super."`
+
+Because sententia is based on Go's `text/template` package, we can also compose actions by feeding
+their output into other ones. For example, we could write an action to turn a noun into title case,
+where the first letter is upper case:
+
+```golang
+package main
+
+import (
+	"fmt"
+	"strings"
+
+	"github.com/castillobg/sententia"
+)
+
+func main() {
+	customActions := map[string]interface{}{
+		"capitalize": strings.Title,
+	}
+	sententia.AddActions(customActions)
+	sentence, err := sententia.Make(
+		"She wrote a book called '{{ capitalize an_adjective }} {{ capitalize noun }}'",
+	)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(sentence)
+}
+```
+Then, we could get something like `"She wrote a book called 'A Subdued Duckling'"`.
+If you want a refresher on how Go templates handle arguments,
+[check this out](https://golang.org/pkg/text/template/#hdr-Arguments)!
