@@ -35,93 +35,14 @@
 <a href="https://github.com/kylestetz">kylestetz</a>'s <a href="https://github.com/kylestetz/Sentencer">Sentencer</a>
 (node.js module).</p>
 
-<pre lang="golang"><code>"Oh look, {{ an_adjective }} {{ noun }}!"
-</code></pre>
+<div class="highlight highlight-source-go"><pre><span class="pl-s"><span class="pl-pds">"</span>Oh look, {{ an_adjective }} {{ noun }}!<span class="pl-pds">"</span></span></pre></div>
 
 <p>becomes something like (it's random!):</p>
 
-<pre lang="golang"><code>"Oh look, a tameless recorder!"
-</code></pre>
+<div class="highlight highlight-source-go"><pre><span class="pl-s"><span class="pl-pds">"</span>Oh look, a tameless recorder!<span class="pl-pds">"</span></span></pre></div>
 
 <p>sententia uses Go's <code>text/template</code> to identify the places where a new noun or adjective should be
 generated.</p>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>Download the lib.</p>
-
-<div class="highlight highlight-source-shell"><pre>go get github.com/castillobgr/sententia</pre></div>
-
-<pre lang="golang"><code>package main
-
-import (
-    "fmt"
-
-    "github.com/castillobgr/sententia"
-)
-
-func main() {
-    sentence, err := sententia.Make("Aw yis, {{ adjective }} {{ nouns }}.")
-    if err != nil {
-        panic(err)
-    }
-    fmt.Println(sentence)
-}
-</code></pre>
-
-<h2>
-<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Actions</h2>
-
-<p>Built in actions are:</p>
-
-<p><strong><code>{{ noun }}</code></strong></p>
-
-<p>Picks a random noun and replaces it in the input.</p>
-
-<pre lang="golang"><code>sententia.Make("{{ noun }}")
-// =&gt; "avenue", "knot", "show", "narcissus"
-</code></pre>
-
-<p><strong><code>{{ a_noun }}</code></strong></p>
-
-<p>Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.</p>
-
-<pre lang="golang"><code>sententia.Make("{{ a_noun }}")
-// =&gt; "a romanian", "an archer", "a tyvek"
-</code></pre>
-
-<p><strong><code>{{ nouns }}</code></strong></p>
-
-<p>Picks a random noun and pluralizes it.</p>
-
-<pre lang="golang"><code>sententia.Make("{{ noun }}")
-// =&gt; "harbors", "pumps", "overcoats", "gongs"
-</code></pre>
-
-<p><strong><code>{{ adjective }}</code></strong></p>
-
-<p>Is replaced in the template by a random adjective.</p>
-
-<pre lang="golang"><code>sententia.Make("{{ adjective }}")
-// =&gt; "sprightful", "naif", "glowing", "surfy"
-</code></pre>
-
-<p><strong><code>{{ an_adjective }}</code></strong></p>
-
-<p>Picks a random adjective and precedes it with an article.</p>
-
-<pre lang="golang"><code>sententia.Make("{{ an_adjective }}")
-// =&gt; "a sphygmic", "a clubby", "an uncocked", "a bumbling"
-</code></pre>
-
-<p><strong>These all</strong> can be mixed to provide beautiful nonsensic sentences:</p>
-
-<pre lang="golang"><code>sententia.Make(
-  "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}."
-)
-// =&gt; "Once I had a spleeny wallet full of toilets but they flew into an orchestra."
-</code></pre>
 
 <h2>
 <a id="use-cases" class="anchor" href="#use-cases" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use cases</h2>
@@ -133,6 +54,141 @@ func main() {
 <li>??</li>
 <li>Profit</li>
 </ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Download the lib.</p>
+
+<div class="highlight highlight-source-shell"><pre>go get github.com/castillobgr/sententia</pre></div>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/castillobgr/sententia<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">sentence</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>Aw yis, {{ adjective }} {{ nouns }}.<span class="pl-pds">"</span></span>)
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        <span class="pl-c1">panic</span>(err)
+    }
+    fmt.<span class="pl-c1">Println</span>(sentence)
+}</pre></div>
+
+<h2>
+<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Actions</h2>
+
+<p>Built in actions are:</p>
+
+<p><strong><code>{{ noun }}</code></strong></p>
+
+<p>Picks a random noun and replaces it in the input.</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ noun }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "avenue", "knot", "show", "narcissus"</span></pre></div>
+
+<p><strong><code>{{ a_noun }}</code></strong></p>
+
+<p>Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ a_noun }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "a romanian", "an archer", "a tyvek"</span></pre></div>
+
+<p><strong><code>{{ nouns }}</code></strong></p>
+
+<p>Picks a random noun and pluralizes it.</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ noun }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "harbors", "pumps", "overcoats", "gongs"</span></pre></div>
+
+<p><strong><code>{{ adjective }}</code></strong></p>
+
+<p>Is replaced in the template by a random adjective.</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ adjective }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "sprightful", "naif", "glowing", "surfy"</span></pre></div>
+
+<p><strong><code>{{ an_adjective }}</code></strong></p>
+
+<p>Picks a random adjective and precedes it with an article.</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ an_adjective }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "a sphygmic", "a clubby", "an uncocked", "a bumbling"</span></pre></div>
+
+<p><strong>These all</strong> can be mixed to provide beautiful nonsensic sentences:</p>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(
+  <span class="pl-s"><span class="pl-pds">"</span>Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}.<span class="pl-pds">"</span></span>,
+)
+<span class="pl-c">// =&gt; "Once I had a spleeny wallet full of toilets but they flew into an orchestra."</span></pre></div>
+
+<h2>
+<a id="extending-actions" class="anchor" href="#extending-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extending actions</h2>
+
+<p>sententia can be extended by adding custom actions. Let's say we want to append 'er' to every noun:
+We could write something like</p>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>math/rand<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/castillobg/sententia<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">customActions</span> <span class="pl-k">:=</span> <span class="pl-k">map</span>[<span class="pl-k">string</span>]<span class="pl-k">interface</span>{}{
+        <span class="pl-s"><span class="pl-pds">"</span>rating<span class="pl-pds">"</span></span>: <span class="pl-c1">func</span>() <span class="pl-k">string</span> {
+            <span class="pl-smi">ratings</span> <span class="pl-k">:=</span> []<span class="pl-k">string</span>{<span class="pl-s"><span class="pl-pds">"</span>OK<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bad<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>meh<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>super<span class="pl-pds">"</span></span>}
+            <span class="pl-k">return</span> ratings[rand.<span class="pl-c1">Intn</span>(<span class="pl-c1">len</span>(ratings))]
+        },
+    }
+    sententia.<span class="pl-c1">AddActions</span>(customActions)
+    <span class="pl-smi">sentence</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> sententia.<span class="pl-c1">Make</span>(
+        <span class="pl-s"><span class="pl-pds">"</span>Dinner was {{ rating }}.<span class="pl-pds">"</span></span>,
+    )
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        <span class="pl-c1">panic</span>(err)
+    }
+    fmt.<span class="pl-c1">Println</span>(sentence)
+}</pre></div>
+
+<p>and maybe we'd get <code>"Dinner was super."</code></p>
+
+<p>Because sententia is based on Go's <code>text/template</code> package, we can also compose actions by feeding
+their output into other ones. For example, we could write an action to turn a noun into title case,
+where the first letter is upper case:</p>
+
+<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+
+<span class="pl-k">import</span> (
+    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
+    <span class="pl-s"><span class="pl-pds">"</span>strings<span class="pl-pds">"</span></span>
+
+    <span class="pl-s"><span class="pl-pds">"</span>github.com/castillobg/sententia<span class="pl-pds">"</span></span>
+)
+
+<span class="pl-k">func</span> <span class="pl-en">main</span>() {
+    <span class="pl-smi">customActions</span> <span class="pl-k">:=</span> <span class="pl-k">map</span>[<span class="pl-k">string</span>]<span class="pl-k">interface</span>{}{
+        <span class="pl-s"><span class="pl-pds">"</span>capitalize<span class="pl-pds">"</span></span>: strings.<span class="pl-smi">Title</span>,
+    }
+    sententia.<span class="pl-c1">AddActions</span>(customActions)
+    <span class="pl-smi">sentence</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> sententia.<span class="pl-c1">Make</span>(
+        <span class="pl-s"><span class="pl-pds">"</span>She wrote a book called '{{ capitalize an_adjective }} {{ capitalize noun }}'<span class="pl-pds">"</span></span>,
+    )
+    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
+        <span class="pl-c1">panic</span>(err)
+    }
+    fmt.<span class="pl-c1">Println</span>(sentence)
+}</pre></div>
+
+<p>Then, we could get something like <code>"She wrote a book called 'A Subdued Duckling'"</code>.
+If you want a refresher on how Go templates handle arguments,
+<a href="https://golang.org/pkg/text/template/#hdr-Arguments">check this out</a>!</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/castillobgr">castillobgr</a></p>
