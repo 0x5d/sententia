@@ -4,13 +4,13 @@ Generate random adjective-noun combinations, madlibs-style, in Golang. Inspired 
 [kylestetz](https://github.com/kylestetz)'s [Sentencer](https://github.com/kylestetz/Sentencer)
 (node.js module).
 
-```golang
+```go
 "Oh look, {{ an_adjective }} {{ noun }}!"
 ```
 
 becomes something like (it's random!):
 
-```golang
+```go
 "Oh look, a tameless recorder!"
 ```
 
@@ -34,7 +34,7 @@ Download the lib.
 go get github.com/castillobgr/sententia
 ```
 
-```golang
+```go
 package main
 
 import (
@@ -59,7 +59,7 @@ Built in actions are:
 **`{{ noun }}`**
 
 Picks a random noun and replaces it in the input.
-```golang
+```go
 sententia.Make("{{ noun }}")
 // => "avenue", "knot", "show", "narcissus"
 ```
@@ -67,7 +67,7 @@ sententia.Make("{{ noun }}")
 **`{{ a_noun }}`**
 
 Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.
-```golang
+```go
 sententia.Make("{{ a_noun }}")
 // => "a romanian", "an archer", "a tyvek"
 ```
@@ -75,7 +75,7 @@ sententia.Make("{{ a_noun }}")
 **`{{ nouns }}`**
 
 Picks a random noun and pluralizes it.
-```golang
+```go
 sententia.Make("{{ noun }}")
 // => "harbors", "pumps", "overcoats", "gongs"
 ```
@@ -83,7 +83,7 @@ sententia.Make("{{ noun }}")
 **`{{ adjective }}`**
 
 Is replaced in the template by a random adjective.
-```golang
+```go
 sententia.Make("{{ adjective }}")
 // => "sprightful", "naif", "glowing", "surfy"
 ```
@@ -91,13 +91,13 @@ sententia.Make("{{ adjective }}")
 **`{{ an_adjective }}`**
 
 Picks a random adjective and precedes it with an article.
-```golang
+```go
 sententia.Make("{{ an_adjective }}")
 // => "a sphygmic", "a clubby", "an uncocked", "a bumbling"
 ```
 
 **These all** can be mixed to provide beautiful nonsensic sentences:
-```golang
+```go
 sententia.Make(
   "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}.",
 )
@@ -108,7 +108,7 @@ sententia.Make(
 
 sententia can be extended by adding custom actions. Let's say we want to append 'er' to every noun:
 We could write something like
-```golang
+```go
 package main
 
 import (
@@ -141,7 +141,7 @@ Because sententia is based on Go's `text/template` package, we can also compose 
 their output into other ones. For example, we could write an action to turn a noun into title case,
 where the first letter is upper case:
 
-```golang
+```go
 package main
 
 import (
