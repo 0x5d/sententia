@@ -1,34 +1,25 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>Sententia by castillobgr</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Sententia</h1>
-        <p>Generate random adjective-noun combinations, madlibs-style, in Golang.</p>
+    <section class="page-header">
+      <h1 class="project-name">Sententia</h1>
+      <h2 class="project-tagline">Generate random adjective-noun combinations, madlibs-style, in Golang.</h2>
+      <a href="https://github.com/castillobgr/sententia" class="btn">View on GitHub</a>
+      <a href="https://github.com/castillobgr/sententia/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/castillobgr/sententia/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <p class="view"><a href="https://github.com/castillobgr/sententia">View the Project on GitHub <small>castillobgr/sententia</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/castillobgr/sententia/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/castillobgr/sententia/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/castillobgr/sententia">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="sententia" class="anchor" href="#sententia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>sententia</h1>
 
 <p>Generate random adjective-noun combinations, madlibs-style, in Golang. Inspired by
@@ -126,38 +117,21 @@ generated.</p>
 <span class="pl-c">// =&gt; "Once I had a spleeny wallet full of toilets but they flew into an orchestra."</span></pre></div>
 
 <h2>
-<a id="extending-actions" class="anchor" href="#extending-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extending actions</h2>
+<a id="extending-sententia" class="anchor" href="#extending-sententia" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extending sententia</h2>
 
-<p>sententia can be extended by adding custom actions. Let's say we want to append 'er' to every noun:
-We could write something like</p>
+<p><strong>Adjectives and nouns</strong></p>
 
-<div class="highlight highlight-source-go"><pre><span class="pl-k">package</span> main
+<p>sententia can be extended by adding custom nouns or adjectives, or overwriting the built-in ones.</p>
 
-<span class="pl-k">import</span> (
-    <span class="pl-s"><span class="pl-pds">"</span>fmt<span class="pl-pds">"</span></span>
-    <span class="pl-s"><span class="pl-pds">"</span>math/rand<span class="pl-pds">"</span></span>
+<div class="highlight highlight-source-go"><pre><span class="pl-smi">customNouns</span> <span class="pl-k">:=</span> []<span class="pl-k">string</span>{<span class="pl-s"><span class="pl-pds">"</span>potato<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>carrot<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>letuce<span class="pl-pds">"</span></span>}
+sententia.<span class="pl-c1">AddNouns</span>(nouns) <span class="pl-c">// Apepnds the new nouns to the existent ones.</span>
+sententia.<span class="pl-c1">SetNouns</span>(nouns) <span class="pl-c">// Overwrites the existent nouns.</span>
 
-    <span class="pl-s"><span class="pl-pds">"</span>github.com/castillobg/sententia<span class="pl-pds">"</span></span>
-)
+<span class="pl-smi">customAdjectives</span> <span class="pl-k">:=</span> []<span class="pl-k">string</span>{<span class="pl-s"><span class="pl-pds">"</span>delicious<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>earthy<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>healthy<span class="pl-pds">"</span></span>}
+sententia.<span class="pl-c1">AddAdjectives</span>(customAdjectives) <span class="pl-c">// Apepnds the new adjectives to the existent ones.</span>
+sententia.<span class="pl-c1">SetAdjectives</span>(customAdjectives) <span class="pl-c">// Overwrites existent adjectives.</span></pre></div>
 
-<span class="pl-k">func</span> <span class="pl-en">main</span>() {
-    <span class="pl-smi">customActions</span> <span class="pl-k">:=</span> <span class="pl-k">map</span>[<span class="pl-k">string</span>]<span class="pl-k">interface</span>{}{
-        <span class="pl-s"><span class="pl-pds">"</span>rating<span class="pl-pds">"</span></span>: <span class="pl-c1">func</span>() <span class="pl-k">string</span> {
-            <span class="pl-smi">ratings</span> <span class="pl-k">:=</span> []<span class="pl-k">string</span>{<span class="pl-s"><span class="pl-pds">"</span>OK<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bad<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>meh<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>super<span class="pl-pds">"</span></span>}
-            <span class="pl-k">return</span> ratings[rand.<span class="pl-c1">Intn</span>(<span class="pl-c1">len</span>(ratings))]
-        },
-    }
-    sententia.<span class="pl-c1">AddActions</span>(customActions)
-    <span class="pl-smi">sentence</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> sententia.<span class="pl-c1">Make</span>(
-        <span class="pl-s"><span class="pl-pds">"</span>Dinner was {{ rating }}.<span class="pl-pds">"</span></span>,
-    )
-    <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
-        <span class="pl-c1">panic</span>(err)
-    }
-    fmt.<span class="pl-c1">Println</span>(sentence)
-}</pre></div>
-
-<p>and maybe we'd get <code>"Dinner was super."</code></p>
+<p><strong>Actions</strong></p>
 
 <p>Because sententia is based on Go's <code>text/template</code> package, we can also compose actions by feeding
 their output into other ones. For example, we could write an action to turn a noun into title case,
@@ -189,13 +163,15 @@ where the first letter is upper case:</p>
 <p>Then, we could get something like <code>"She wrote a book called 'A Subdued Duckling'"</code>.
 If you want a refresher on how Go templates handle arguments,
 <a href="https://golang.org/pkg/text/template/#hdr-Arguments">check this out</a>!</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/castillobgr">castillobgr</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/castillobgr/sententia">Sententia</a> is maintained by <a href="https://github.com/castillobgr">castillobgr</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+    </section>
+
+  
   </body>
 </html>
