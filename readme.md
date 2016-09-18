@@ -5,7 +5,7 @@ Generate random adjective-noun combinations, madlibs-style, in Golang. Inspired 
 (node.js module).
 
 ```go
-"Oh look, {{ an_adjective }} {{ noun }}!"
+"Oh look, {{ an adjective }} {{ noun }}!"
 ```
 
 becomes something like (it's random!):
@@ -56,7 +56,7 @@ func main() {
 
 Built in actions are:
 
-**`{{ noun }}`**
+**`noun`**
 
 Picks a random noun and replaces it in the input.
 ```go
@@ -64,15 +64,7 @@ sententia.Make("{{ noun }}")
 // => "avenue", "knot", "show", "narcissus"
 ```
 
-**`{{ a_noun }}`**
-
-Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.
-```go
-sententia.Make("{{ a_noun }}")
-// => "a romanian", "an archer", "a tyvek"
-```
-
-**`{{ nouns }}`**
+**`nouns`**
 
 Picks a random noun and pluralizes it.
 ```go
@@ -80,7 +72,7 @@ sententia.Make("{{ noun }}")
 // => "harbors", "pumps", "overcoats", "gongs"
 ```
 
-**`{{ adjective }}`**
+**`adjective`**
 
 Is replaced in the template by a random adjective.
 ```go
@@ -88,18 +80,22 @@ sententia.Make("{{ adjective }}")
 // => "sprightful", "naif", "glowing", "surfy"
 ```
 
-**`{{ an_adjective }}`**
+**`a` and `an`**
 
-Picks a random adjective and precedes it with an article.
+Can be used with `adjective` and `noun` to prefix them with an article (either "a" or "an")
 ```go
-sententia.Make("{{ an_adjective }}")
+sententia.Make("{{ a noun }}")
+// => "a romanian", "an archer", "a tyvek"
+```
+```go
+sententia.Make("{{ an adjective }}")
 // => "a sphygmic", "a clubby", "an uncocked", "a bumbling"
 ```
 
 **These all** can be mixed to provide beautiful nonsensic sentences:
 ```go
 sententia.Make(
-  "Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}.",
+  "Once I had {{ an adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a noun }}.",
 )
 // => "Once I had a spleeny wallet full of toilets but they flew into an orchestra."
 ```
@@ -141,7 +137,7 @@ func main() {
 	}
 	sententia.AddActions(customActions)
 	sentence, err := sententia.Make(
-		"She wrote a book called '{{ capitalize an_adjective }} {{ capitalize noun }}'",
+		"She wrote a book called '{{ capitalize (an adjective) }} {{ capitalize noun }}'",
 	)
 	if err != nil {
 		panic(err)
@@ -150,5 +146,7 @@ func main() {
 }
 ```
 Then, we could get something like `"She wrote a book called 'A Subdued Duckling'"`.
+Notice we have to group the actions with `()` for Go to interpret their output as input to
+`capitalize`.
 If you want a refresher on how Go templates handle arguments,
 [check this out](https://golang.org/pkg/text/template/#hdr-Arguments)!

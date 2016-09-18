@@ -12,19 +12,15 @@ func init() {
 }
 
 var funcs = template.FuncMap{
-	"noun":         noun,
-	"a_noun":       aNoun,
-	"nouns":        nouns,
-	"adjective":    adjective,
-	"an_adjective": anAdjective,
+	"noun":      noun,
+	"nouns":     nouns,
+	"adjective": adjective,
+	"an":        articlize,
+	"a":         articlize,
 }
 
 func noun() string {
 	return nounList[rand.Intn(len(nounList))]
-}
-
-func aNoun() string {
-	return articlize(noun())
 }
 
 func nouns() string {
@@ -33,10 +29,6 @@ func nouns() string {
 
 func adjective() string {
 	return adjectiveList[rand.Intn(len(adjectiveList))]
-}
-
-func anAdjective() string {
-	return articlize(adjective())
 }
 
 func articlize(word string) string {

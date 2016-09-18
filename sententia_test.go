@@ -24,6 +24,22 @@ func TestAdjectives(t *testing.T) {
 	assert.Equal(t, sentence, adjectives[0])
 }
 
+func TestA(t *testing.T) {
+	nouns := []string{"potato"}
+	sententia.SetNouns(nouns)
+	sentence, err := sententia.Make("{{ a noun }}")
+	assert.NoError(t, err)
+	assert.Equal(t, sentence, "a "+nouns[0])
+}
+
+func TestAn(t *testing.T) {
+	nouns := []string{"apex"}
+	sententia.SetNouns(nouns)
+	sentence, err := sententia.Make("{{ a noun }}")
+	assert.NoError(t, err)
+	assert.Equal(t, sentence, "an "+nouns[0])
+}
+
 func TestAddNouns(t *testing.T) {
 	sententia.SetNouns([]string{})
 	customNouns := []string{"rocket"}
