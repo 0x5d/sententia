@@ -26,7 +26,7 @@
 <a href="https://github.com/kylestetz">kylestetz</a>'s <a href="https://github.com/kylestetz/Sentencer">Sentencer</a>
 (node.js module).</p>
 
-<div class="highlight highlight-source-go"><pre><span class="pl-s"><span class="pl-pds">"</span>Oh look, {{ an_adjective }} {{ noun }}!<span class="pl-pds">"</span></span></pre></div>
+<div class="highlight highlight-source-go"><pre><span class="pl-s"><span class="pl-pds">"</span>Oh look, {{ an adjective }} {{ noun }}!<span class="pl-pds">"</span></span></pre></div>
 
 <p>becomes something like (it's random!):</p>
 
@@ -74,45 +74,41 @@ generated.</p>
 
 <p>Built in actions are:</p>
 
-<p><strong><code>{{ noun }}</code></strong></p>
+<p><strong><code>noun</code></strong></p>
 
 <p>Picks a random noun and replaces it in the input.</p>
 
 <div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ noun }}<span class="pl-pds">"</span></span>)
 <span class="pl-c">// =&gt; "avenue", "knot", "show", "narcissus"</span></pre></div>
 
-<p><strong><code>{{ a_noun }}</code></strong></p>
-
-<p>Picks a random noun, precedes it with an article ("a" or "an"), and replaces it.</p>
-
-<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ a_noun }}<span class="pl-pds">"</span></span>)
-<span class="pl-c">// =&gt; "a romanian", "an archer", "a tyvek"</span></pre></div>
-
-<p><strong><code>{{ nouns }}</code></strong></p>
+<p><strong><code>nouns</code></strong></p>
 
 <p>Picks a random noun and pluralizes it.</p>
 
 <div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ noun }}<span class="pl-pds">"</span></span>)
 <span class="pl-c">// =&gt; "harbors", "pumps", "overcoats", "gongs"</span></pre></div>
 
-<p><strong><code>{{ adjective }}</code></strong></p>
+<p><strong><code>adjective</code></strong></p>
 
 <p>Is replaced in the template by a random adjective.</p>
 
 <div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ adjective }}<span class="pl-pds">"</span></span>)
 <span class="pl-c">// =&gt; "sprightful", "naif", "glowing", "surfy"</span></pre></div>
 
-<p><strong><code>{{ an_adjective }}</code></strong></p>
+<p><strong><code>a</code> and <code>an</code></strong></p>
 
-<p>Picks a random adjective and precedes it with an article.</p>
+<p>Can be used with <code>adjective</code> and <code>noun</code> to prefix them with an article (either "a" or "an")</p>
 
-<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ an_adjective }}<span class="pl-pds">"</span></span>)
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ a noun }}<span class="pl-pds">"</span></span>)
+<span class="pl-c">// =&gt; "a romanian", "an archer", "a tyvek"</span></pre></div>
+
+<div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(<span class="pl-s"><span class="pl-pds">"</span>{{ an adjective }}<span class="pl-pds">"</span></span>)
 <span class="pl-c">// =&gt; "a sphygmic", "a clubby", "an uncocked", "a bumbling"</span></pre></div>
 
 <p><strong>These all</strong> can be mixed to provide beautiful nonsensic sentences:</p>
 
 <div class="highlight highlight-source-go"><pre>sententia.<span class="pl-c1">Make</span>(
-  <span class="pl-s"><span class="pl-pds">"</span>Once I had {{ an_adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a_noun }}.<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>Once I had {{ an adjective }} {{ noun }} full of {{ nouns }} but they flew into {{ a noun }}.<span class="pl-pds">"</span></span>,
 )
 <span class="pl-c">// =&gt; "Once I had a spleeny wallet full of toilets but they flew into an orchestra."</span></pre></div>
 
@@ -152,7 +148,7 @@ where the first letter is upper case:</p>
     }
     sententia.<span class="pl-c1">AddActions</span>(customActions)
     <span class="pl-smi">sentence</span>, <span class="pl-smi">err</span> <span class="pl-k">:=</span> sententia.<span class="pl-c1">Make</span>(
-        <span class="pl-s"><span class="pl-pds">"</span>She wrote a book called '{{ capitalize an_adjective }} {{ capitalize noun }}'<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>She wrote a book called '{{ capitalize (an adjective) }} {{ capitalize noun }}'<span class="pl-pds">"</span></span>,
     )
     <span class="pl-k">if</span> err != <span class="pl-c1">nil</span> {
         <span class="pl-c1">panic</span>(err)
@@ -161,6 +157,8 @@ where the first letter is upper case:</p>
 }</pre></div>
 
 <p>Then, we could get something like <code>"She wrote a book called 'A Subdued Duckling'"</code>.
+Notice we have to group the actions with <code>()</code> for Go to interpret their output as input to
+<code>capitalize</code>.
 If you want a refresher on how Go templates handle arguments,
 <a href="https://golang.org/pkg/text/template/#hdr-Arguments">check this out</a>!</p>
 
